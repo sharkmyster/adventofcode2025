@@ -6,70 +6,47 @@ import (
 )
 
 const (
-	L = "L"
-	R = "R"
+	L    = "L"
+	R    = "R"
 	PIPS = 100
 )
 
-// var input = []string{
-// 	"L68",
-// 	"L30",
-// 	"R48",
-// 	"L5",
-// 	"R60",
-// 	"L55",
-// 	"L1",
-// 	"L99",
-// 	"R14",
-// 	"L82",
-// }
-
-func main() {
-	tests() 
-
-	// password := exercise01(Input01)
-	password := 1
-
-	fmt.Println(password)
+var input = []string{
+	"L68",
+	"L30",
+	"R48",
+	"L5",
+	"R60",
+	"L55",
+	"L1",
+	"L99",
+	"R14",
+	"L82",
 }
 
-func tests()  {
-		tests := []struct{
-		a int
-		b int
-	}{
-		{0, 1},
-		{0, 2},
-		{0, 100},
-		{50, 1000},
-	}
-	fmt.Println("------- Testing --------")
-	for _, test := range(tests) {
-		fmt.Printf("%d - %d = %d\n", test.a, test.b, dec(test.a, test.b))
-	}
-	fmt.Println("------- End --------")
-	fmt.Printf("\n\n")
+func main() {
+	password := exercise01(Input01)
+
+	fmt.Println(password)
 }
 
 func exercise01(input []string) int {
 	position := 50
 	password := 0
+	ticks := 0
 
-	for _, val := range(input) {
+	for _, val := range input {
 
 		letter, number := split(val)
 
 		if letter == L {
-			position = dec(position, number)
-		
+			position, ticks = dec(position, number)
 		}
 		if letter == R {
-			position = inc(position, number)
-		
+			position, ticks = inc(position, number)
 		}
-		if position == 0 {
-			password = password + 1
-		}
+
+		password += ticks
 	}
 
 	return password
@@ -86,12 +63,29 @@ func split(s string) (string, int) {
 	return letter, num
 }
 
-func dec(position int, num int) int {
-	return ((position - num) % PIPS + PIPS) % PIPS
+func dec(position int, num int) (int, int) {
+	revs := num / PIPS
+	rem := num % PIPS
+	diff := position - rem
+
+	if diff > 0 {
+		return diff, revs
+	}
+
+	if position != 0 {
+		revs += 1
+	}
+
+	return (diff + PIPS) % PIPS, revs
 }
 
-func inc(position int, num int) int {
-	return (position + num) % PIPS
+func inc(position int, num int) (int, int) {
+	revs := num / PIPS
+	rem := num % PIPS
+	sum := position + rem
+
+	if sum < PIPS {
+		return sum, revs
+	}
+	return sum - PIPS, revs + 1
 }
-
-
