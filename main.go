@@ -1,5 +1,6 @@
 package main
 
 func main() {
-	Exercise02(Input02)
+	Exercise03(Input03)
 }
+
