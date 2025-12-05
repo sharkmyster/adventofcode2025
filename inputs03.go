@@ -1,6 +1,6 @@
 package main
 
-var TestInput03 = []string {
+var TestInput03 = []string{
 	"987654321111111",
 	"811111111111119",
 	"234234234234278",

@@ -43,7 +43,7 @@ func Exercise02(TestInput02 string) {
 	}
 
 	sum := 0
-	for _, value := range(invalidIds) {
+	for _, value := range invalidIds {
 		sum += value
 	}
 
@@ -53,14 +53,14 @@ func Exercise02(TestInput02 string) {
 func isValid(id int) bool {
 	s := strconv.Itoa(id)
 	idLength := len(s)
-	index := idLength/2
+	index := idLength / 2
 
 	for i := index; i > 0; i-- {
-		if idLength % i != 0 {
+		if idLength%i != 0 {
 			continue
 		}
 		if isRepeated(s, i) {
-			return true;
+			return true
 		}
 	}
 
