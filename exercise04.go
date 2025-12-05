@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -27,7 +26,7 @@ const roll string = "@"
 const blank string = "."
 const maxRolls int = 4
 
-func Exercise04(input []string)  {
+func Exercise04(input []string) int {
 	rows := [][]string{}
 	for _, row := range(input) {
 		rows = append(rows, splitRow(row))
@@ -44,7 +43,7 @@ func Exercise04(input []string)  {
 	}
 
 	
-	fmt.Println(totalRemoved)
+	return totalRemoved
 }
 
 func removeRolls(rows [][]string) ([][]string, int) {

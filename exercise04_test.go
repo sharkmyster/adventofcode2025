@@ -71,3 +71,7 @@ func TestCountRolls(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkExercise04(b *testing.B) {
+	Exercise04(Input04)
+}
