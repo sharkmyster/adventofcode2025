@@ -1,5 +1,15 @@
 package main
 
+import (
+	"fmt"
+)
+
 func main() {
-	Exercise04(Input04)
+	// total := Exercise05(TestInput05A, TestInput05B)
+	total := Exercise05(Input05A, Input05B)
+
+	fmt.Println(total)
 }
+
+
+
