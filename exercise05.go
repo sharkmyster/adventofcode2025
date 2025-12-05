@@ -1,13 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
 func Exercise05(freshRanges []string, idList []int) int {
+
 	ranges := make([][]int, len(freshRanges))
+
 	for i, freshRange := range(freshRanges) {
 		bounds := strings.Split(freshRange, "-")
 
@@ -23,10 +26,18 @@ func Exercise05(freshRanges []string, idList []int) int {
 
 	total := 0
 
-	for i := 0; i < len(ranges); i++ {
-		if ranges[i][1] > ranges[i+1][0] {
-
+	for i := 0; i < len(ranges) - 1; i++ {
+		start := i
+		for j := start; j < len(ranges)-1; j++ {
+			if (ranges[i][1] > ranges[i+1][0]) || ((ranges[i][1] + 1) == ranges[i+1][0]) {
+				ranges[i][1] = ranges[i+1][1]
+			}
 		}
+		
+	}
+
+	for i := 0; i < 3; i++ {
+		fmt.Println(ranges[i])
 	}
 	
 
