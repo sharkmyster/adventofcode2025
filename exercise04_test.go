@@ -55,7 +55,7 @@ func TestCountRolls(t *testing.T) {
 			y:         0,
 			want:      2,
 		},
-				{
+		{
 			locations: testLocations,
 			x:         9,
 			y:         2,

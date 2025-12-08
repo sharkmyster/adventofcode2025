@@ -4,7 +4,7 @@ import "fmt"
 
 func Exercise03(input []string) {
 	intSlices := make([][]int, len(input))
-	
+
 	for i, row := range input {
 		slice := toIntSlice(row)
 		intSlices[i] = slice
