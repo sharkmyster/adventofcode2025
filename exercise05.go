@@ -29,29 +29,32 @@ func Exercise05(freshRanges []string, idList []int) int {
 }
 
 func calculateRanges(ranges [][]int) [][]int {
-	newRanges := [][]int{}
-	penultimate := len(ranges) - 1
-
-	for i := 0; i < penultimate; i++ {
-		currentRange := ranges[i]
-		nextRange := ranges[i+1]
-		if currentRange[1] >= nextRange[0] || (currentRange[1]+1) == nextRange[0] {
-			nextRange[0] = currentRange[0]
-			if currentRange[1] > nextRange[1] {
-				nextRange[1] = currentRange[1]
-			} 
-			currentRange[0] = 0
-			currentRange[1] = 0
-		}
+	if len(ranges) == 0 {
+		return [][]int{}
 	}
 
-	for _, r := range ranges {
-		if r[0] != 0 && r[1] != 0 {
-			newRanges = append(newRanges, r)
+	merged := [][]int{}
+	current := ranges[0]
+
+	for i := 1; i < len(ranges); i++ {
+		next := ranges[i]
+		// Check if ranges overlap or are adjacent
+		if current[1] >= next[0]-1 {
+			// The next range might be smaller than the current range
+			if next[1] > current[1] {
+				current[1] = next[1]
+			}
+		} else {
+			// No overlap, add current and move to next
+			merged = append(merged, []int{current[0], current[1]})
+			current = next
 		}
 	}
+	
+	// Add the last range
+	merged = append(merged, []int{current[0], current[1]})
 
-	return newRanges
+	return merged
 }
 
 func convertToRangeSlices(strSlice []string) [][]int {
