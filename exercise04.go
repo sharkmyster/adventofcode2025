@@ -28,7 +28,7 @@ const maxRolls int = 4
 
 func Exercise04(input []string) int {
 	rows := [][]string{}
-	for _, row := range(input) {
+	for _, row := range input {
 		rows = append(rows, splitRow(row))
 	}
 
@@ -42,7 +42,6 @@ func Exercise04(input []string) int {
 		rows = Copy2D(newRolls)
 	}
 
-	
 	return totalRemoved
 }
 
@@ -51,8 +50,8 @@ func removeRolls(rows [][]string) ([][]string, int) {
 
 	newRows := Copy2D(rows)
 
-	for y, row := range(rows) {
-		for x, item := range(row) {
+	for y, row := range rows {
+		for x, item := range row {
 			if item == roll {
 				adjacentRolls := countAdjacentRolls(rows, x, y)
 
@@ -101,10 +100,10 @@ func countAdjacentRolls(locationsMap [][]string, x int, y int) int {
 }
 
 func Copy2D(src [][]string) [][]string {
-    dst := make([][]string, len(src))
-    for i := range src {
-        dst[i] = make([]string, len(src[i]))
-        copy(dst[i], src[i])
-    }
-    return dst
+	dst := make([][]string, len(src))
+	for i := range src {
+		dst[i] = make([]string, len(src[i]))
+		copy(dst[i], src[i])
+	}
+	return dst
 }

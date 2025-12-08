@@ -7,7 +7,7 @@ var TestInput05A = []string{
 	"12-18",
 }
 
-var TestInput05B= []int{
+var TestInput05B = []int{
 	1,
 	5,
 	8,

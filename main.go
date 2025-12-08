@@ -10,6 +10,3 @@ func main() {
 
 	fmt.Println(total)
 }
-
-
-

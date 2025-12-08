@@ -1,17 +1,66 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 	"strings"
 )
 
+// correct answer 366181852921027
+
 func Exercise05(freshRanges []string, idList []int) int {
 
-	ranges := make([][]int, len(freshRanges))
+	ranges := convertToRangeSlices(freshRanges)
 
-	for i, freshRange := range(freshRanges) {
+	sort.Slice(ranges, func(i, j int) bool {
+		return ranges[i][0] < ranges[j][0]
+	})
+
+	newRanges := calculateRanges(ranges)
+
+	total := 0
+
+	for _, r := range newRanges {
+		total += (r[1] - r[0]) + 1
+	}
+
+	return total
+
+}
+
+func calculateRanges(ranges [][]int) [][]int {
+	if len(ranges) == 0 {
+		return [][]int{}
+	}
+
+	merged := [][]int{}
+	current := ranges[0]
+
+	for i := 1; i < len(ranges); i++ {
+		next := ranges[i]
+		// Check if ranges overlap or are adjacent
+		if current[1] >= next[0]-1 {
+			// The next range might be smaller than the current range
+			if next[1] > current[1] {
+				current[1] = next[1]
+			}
+		} else {
+			// No overlap, add current and move to next
+			merged = append(merged, []int{current[0], current[1]})
+			current = next
+		}
+	}
+	
+	// Add the last range
+	merged = append(merged, []int{current[0], current[1]})
+
+	return merged
+}
+
+func convertToRangeSlices(strSlice []string) [][]int {
+	ranges := make([][]int, len(strSlice))
+
+	for i, freshRange := range strSlice {
 		bounds := strings.Split(freshRange, "-")
 
 		bottom, _ := strconv.Atoi(bounds[0])
@@ -20,26 +69,5 @@ func Exercise05(freshRanges []string, idList []int) int {
 		ranges[i] = []int{bottom, top}
 	}
 
-	sort.Slice(ranges, func(i, j int) bool {
-		return ranges[i][0] < ranges[j][0]
-	})
-
-	total := 0
-
-	for i := 0; i < len(ranges) - 1; i++ {
-		start := i
-		for j := start; j < len(ranges)-1; j++ {
-			if (ranges[i][1] > ranges[i+1][0]) || ((ranges[i][1] + 1) == ranges[i+1][0]) {
-				ranges[i][1] = ranges[i+1][1]
-			}
-		}
-		
-	}
-
-	for i := 0; i < 3; i++ {
-		fmt.Println(ranges[i])
-	}
-	
-
-	return total
+	return ranges
 }
