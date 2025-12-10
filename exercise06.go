@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"strconv"
 )
 
+// Part 01 - 6725216329103
 func Exercise06(input []string) int {
 	numbers := parseInput(input[:len(input)-1])
 	operators := parseOperators(input[len(input)-1])
@@ -16,21 +16,15 @@ func Exercise06(input []string) int {
 	for i, row := range numbers {
 		operator := operators[i]
 
-		// fmt.Printf("%v %v\n", operator, row)
-
 		if operator == "*" {
-			fmt.Printf("%v %v %v\n", operator, row, multiply(row))
 			grandTotal += multiply(row)
 		}
 
 		if operator == "+" {
-			fmt.Printf("%v %v %v\n", operator, row, add(row))
+
 			grandTotal += add(row)
 		}
 	}
-
-	fmt.Println(numbers)
-	fmt.Println(operators)
 
 	return grandTotal
 }
@@ -101,10 +95,11 @@ func transpose(matrix [][]int) [][]int {
 }
 
 func multiply(nums []int) int {
-	if len(nums) == 1 {
-		return nums[0]
+	total := 1
+	for _, n := range nums {
+		total *= n
 	}
-	return nums[0] * multiply(nums[1:])
+	return total
 }
 
 func add(nums []int) int {
