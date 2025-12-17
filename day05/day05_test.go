@@ -5,6 +5,24 @@ import (
 	"testing"
 )
 
+func TestDay04Part1(t *testing.T) {
+	want := 3
+	got := Part1(TestInput05A, TestInput05B)
+
+	if want != got {
+		t.Fatalf("Day 4 Part 1 failed, want = %v, got = %v", want, got)
+	}
+}	
+
+func TestDay04Part2(t *testing.T) {
+	want := 14
+	got := Part2(TestInput05A, TestInput05B)
+
+	if want != got {
+		t.Fatalf("Day 4 Part 1 failed, want = %v, got = %v", want, got)
+	}
+}
+
 func TestConvertToRangeSlices(t *testing.T) {
 	testRanges := []string{
 		"5-10",

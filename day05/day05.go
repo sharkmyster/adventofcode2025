@@ -8,7 +8,25 @@ import (
 
 // correct answer 366181852921027
 
-func Exercise05(freshRanges []string, idList []int) int {
+func Part1(freshRanges []string, idList []int) int {
+
+	ranges := convertToRangeSlices(freshRanges)
+
+	freshIngredients := 0
+
+	for _, id := range idList {
+		for _, idRange := range ranges {
+			if id >= idRange[0] && id <= idRange[1] {
+				freshIngredients += 1
+				break
+			}
+		}
+	}
+
+	return freshIngredients
+}
+
+func Part2(freshRanges []string, idList []int) int {
 
 	ranges := convertToRangeSlices(freshRanges)
 
