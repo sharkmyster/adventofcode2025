@@ -99,8 +99,6 @@ func countAdjacentRolls(locationsMap [][]string, x int, y int) int {
 		adjacentX := x + point.X
 		adjacentY := y + point.Y
 
-		// fmt.Printf("{%d, %d} \n", adjacentY , adjacentX)
-
 		if adjacentX < 0 || adjacentX >= width || adjacentY < 0 || adjacentY >= height {
 			continue
 		}
