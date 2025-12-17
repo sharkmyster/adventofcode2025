@@ -1,21 +1,11 @@
 package day03
 
-import "fmt"
+func Part1(input []string) int {
+	return getTotalJoltages(input, 2)
+}
 
-func Exercise03(input []string) {
-	intSlices := make([][]int, len(input))
-
-	for i, row := range input {
-		slice := toIntSlice(row)
-		intSlices[i] = slice
-	}
-
-	sum := 0
-	for _, slice := range intSlices {
-		sum += findOptimalJoltageDigits(slice, 12)
-	}
-
-	fmt.Println(sum)
+func Part2(input []string) int {
+	return getTotalJoltages(input, 12)
 }
 
 func findOptimalJoltageDigits(slice []int, numDigits int) int {
@@ -49,6 +39,22 @@ func findOptimalJoltageDigits(slice []int, numDigits int) int {
 
 	return num
 
+}
+
+func getTotalJoltages(input []string, numDigits int) int {
+	intSlices := make([][]int, len(input))
+
+	for i, row := range input {
+		slice := toIntSlice(row)
+		intSlices[i] = slice
+	}
+
+	sum := 0
+	for _, slice := range intSlices {
+		sum += findOptimalJoltageDigits(slice, numDigits)
+	}
+
+	return sum
 }
 
 func toIntSlice(s string) []int {
