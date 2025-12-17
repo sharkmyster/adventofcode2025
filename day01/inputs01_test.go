@@ -21,7 +21,3 @@ func TestDay01Part2(t *testing.T) {
 		t.Fatalf("Exercise01 wrong number of ticks")
 	}
 }
-
-// want 3
-
-// want 6

@@ -1,7 +1,6 @@
 package day02
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
@@ -11,11 +10,38 @@ type Pair struct {
 	RangeEnd   int
 }
 
-func Exercise02(TestInput02 string) {
-	idStrings := strings.Split(TestInput02, ",")
-	idPairs := make([]Pair, 0, len(idStrings))
-	invalidIds := make([]int, 0, 1_000_000)
+func Part1(input string) int {
+	idPairs := getIdPairs(input)
 
+	sum := calculateTotal(idPairs, isInvalidPart1)
+
+	return sum
+}
+
+func Part2(input string) int {
+	idPairs := getIdPairs(input)
+
+	sum := calculateTotal(idPairs, isInvalidPart2)
+
+	return sum
+}
+
+func calculateTotal(pairs []Pair, checkFn func(int) bool) int {
+	sum := 0
+	for _, pair := range pairs {
+		for i := pair.RangeStart; i <= pair.RangeEnd; i++ {
+			if checkFn(i) {
+				sum += i
+			}
+		}
+	}
+	return sum
+}
+
+func getIdPairs(input string) []Pair {
+	idStrings := strings.Split(input, ",")
+	idPairs := make([]Pair, 0, len(idStrings))
+	
 	for _, idString := range idStrings {
 		parts := strings.Split(idString, "-")
 
@@ -32,25 +58,18 @@ func Exercise02(TestInput02 string) {
 		}
 		idPairs = append(idPairs, Pair{RangeStart: (rangeStart), RangeEnd: (rangeEnd)})
 	}
-
-	for _, pair := range idPairs {
-
-		for i := pair.RangeStart; i <= pair.RangeEnd; i++ {
-			if isValid(i) {
-				invalidIds = append(invalidIds, i)
-			}
-		}
-	}
-
-	sum := 0
-	for _, value := range invalidIds {
-		sum += value
-	}
-
-	fmt.Println(sum)
+	return idPairs
 }
 
-func isValid(id int) bool {
+func isInvalidPart1(id int) bool{
+	s := strconv.Itoa(id)
+	idLength := len(s)
+	index := idLength / 2
+
+	return s[:index] == s[index:]
+}
+
+func isInvalidPart2(id int) bool {
 	s := strconv.Itoa(id)
 	idLength := len(s)
 	index := idLength / 2
