@@ -1,4 +1,4 @@
-package main
+package day01
 
 import "strconv"
 
@@ -8,7 +8,31 @@ const (
 	PIPS = 100
 )
 
-func Exercise01(input []string) int {
+func Part1(input []string) int {
+	position := 50
+	password := 0
+
+	for _, val := range input {
+
+		letter, number := split(val)
+
+		if letter == L {
+			position, _ = dec(position, number)
+		}
+
+		if letter == R {
+			position, _ = inc(position, number)
+		}
+
+		if position == 0 {
+			password += 1
+		}
+	}
+
+	return password
+}
+
+func Part2(input []string) int {
 	position := 50
 	password := 0
 	ticks := 0
