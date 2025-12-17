@@ -5,6 +5,24 @@ import (
 	"testing"
 )
 
+func TestDay04Part1(t *testing.T) {
+	want := 13
+	got := Part1(TestInput04)
+
+	if want != got {
+		t.Fatalf("Day 4 Part 1 failed want = %v, got = %v", want, got)
+	}
+}
+
+func TestDay04Part2(t *testing.T) {
+	want := 43
+	got := Part2(TestInput04)
+
+	if want != got {
+		t.Fatalf("Day 4 Part 1 failed want = %v, got = %v", want, got)
+	}
+}
+
 func TestSplitRow(t *testing.T) {
 	got := splitRow("..@@")
 	want := []string{".", ".", "@", "@"}
@@ -13,10 +31,6 @@ func TestSplitRow(t *testing.T) {
 		t.Fatalf("CountRolls")
 	}
 }
-
-// func BenchmarkSplitRow(b *testing.B)  {
-// 	splitRow("..@@")
-// }
 
 func TestCountRolls(t *testing.T) {
 	testLocations := [][]string{
@@ -72,6 +86,6 @@ func TestCountRolls(t *testing.T) {
 	}
 }
 
-func BenchmarkExercise04(b *testing.B) {
-	Exercise04(Input04)
-}
+// func BenchmarkExercise04(b *testing.B) {
+// 	Exercise04(Input04)
+// }

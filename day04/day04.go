@@ -26,7 +26,20 @@ const roll string = "@"
 const blank string = "."
 const maxRolls int = 4
 
-func Exercise04(input []string) int {
+
+func Part1(input []string) int {
+	rows := [][]string{}
+	
+	for _, row := range input {
+		rows = append(rows, splitRow(row))
+	}
+
+	_, numRemovedRolls := removeRolls(rows)
+
+	return numRemovedRolls
+}
+
+func Part2(input []string) int {
 	rows := [][]string{}
 	for _, row := range input {
 		rows = append(rows, splitRow(row))
