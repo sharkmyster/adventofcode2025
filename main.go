@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 func main() {
-	Exercise07Part1(Input07)
+	fmt.Println("Advent of Code!!!")
 }

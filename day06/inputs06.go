@@ -1,4 +1,4 @@
-package main
+package day06
 
 var TestInput06 = []string{
 	"123 328  51 64 ",

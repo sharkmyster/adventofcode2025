@@ -1,4 +1,4 @@
-package main
+package day04
 
 var TestInput04 = []string{
 	"..@@.@@@@.",

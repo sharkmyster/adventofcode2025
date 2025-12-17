@@ -1,4 +1,4 @@
-package main
+package day03
 
 var TestInput03 = []string{
 	"987654321111111",

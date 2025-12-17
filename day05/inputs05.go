@@ -1,4 +1,4 @@
-package main
+package day05
 
 var TestInput05A = []string{
 	"3-5",
