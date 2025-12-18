@@ -1,52 +1,90 @@
 package day07
 
 import (
-	"fmt"
-	"strings"
+	"adventofcode2025/utils"
+	"slices"
 )
 
 const pipe string = "|"
 const dot string = "."
 const junction = "^"
-const start = "S"
+const startSymbol = "S"
 
 
-func Exercise07Part1(input []string)  {
-	parsedInput := splitStrings(input)
+func Part1(input []string) int {
+	grid := utils.SplitStrings(input)
+	rows := len(grid)
+	cols := len(grid[0])
 	countSplits := 0
 
-	for i, row := range parsedInput {
-		for j, spot := range row {
-			if spot == start {
-				parsedInput[i+1] [j] = pipe 
-			}
-			if spot == junction {
-				if parsedInput[i-1][j] == pipe {
-					countSplits += 1
-					parsedInput[i][j-1] = pipe
-					parsedInput[i][j+1] = pipe
+	for j := range cols {
+		if grid[0][j] == startSymbol && 1 < rows {
+			grid[1][j] = pipe
+		}
+	}
+
+	for i := 1; i < rows; i++ {
+		for j := range cols {
+			spot := grid[i][j]
+
+			// Handle splitting
+			if spot == junction && grid[i-1][j] == pipe {
+				countSplits++
+				if j > 0 {
+					grid[i][j-1] = pipe
+				}
+				if j < cols-1 {
+					grid[i][j+1] = pipe
 				}
 			}
-			if i > 0 && spot == dot && parsedInput[i-1][j] == pipe {
-				parsedInput[i][j] = pipe
+
+			// Propagate pipes downward
+			if spot == dot && grid[i-1][j] == pipe {
+				grid[i][j] = pipe
 			}
 		}
-		fmt.Println(row)
 	}
 
-	fmt.Println(countSplits)
+	return countSplits
 }
 
-func Exercise07Part2() {
-	
+func Part2(input []string) int {
+	parsedInput := utils.SplitStrings(input)
+
+	startColumn := slices.Index(parsedInput[0], startSymbol)
+
+	countTachyon(parsedInput, 1, startColumn)
+
+	return countTachyon(parsedInput, 1, startColumn)
 }
 
-func splitStrings(input []string) [][]string {
-	newSlice := [][]string{}
-	for _, val := range input {
-		parts := strings.Split(val, "")
-		newSlice = append(newSlice, parts)
+var cache = make(map[int]map[int]int)
+
+func countTachyon(parsedInput [][]string, row int, col int) int {
+	if row == len(parsedInput)-1 {
+		return 1
 	}
-	
-	return newSlice
+
+	if col < 0 || col >= len(parsedInput[0]) {
+		return 0
+	}
+
+	if cache[row] == nil {
+		cache[row] = make(map[int]int)
+	}
+
+	if cached, exists := cache[row][col]; exists {
+		return cached
+	}
+
+	var result int
+	if parsedInput[row][col] == junction {
+		result = countTachyon(parsedInput, row, col-1) + countTachyon(parsedInput, row, col+1)
+	} else {
+		result = countTachyon(parsedInput, row+1, col)
+	}
+
+	cache[row][col] = result
+	return result
 }
+

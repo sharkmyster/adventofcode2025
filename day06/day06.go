@@ -4,6 +4,32 @@ import (
 	"strconv"
 )
 
+func Part1(input []string) int {
+	numbers := parseInput(input[:len(input)-1])
+	operators := parseOperators(input[len(input)-1])
+
+	numbers = transpose(numbers)
+
+	sum := 0
+	for i, row := range numbers {
+		operator := operators[i]
+
+		if operator == "*" {
+			sum += multiply(row)
+		}
+
+		if operator == "+" {
+			sum += add(row)
+		}
+	}
+
+	return sum
+}
+
+func Part2(input []string) int {
+	return len(input)
+}
+
 // Part 01 - 6725216329103
 func Exercise06(input []string) int {
 	numbers := parseInput(input[:len(input)-1])

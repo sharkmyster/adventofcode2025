@@ -5,21 +5,21 @@ import (
 	"testing"
 )
 
-func TestDay04Part1(t *testing.T) {
+func TestDay05Part1(t *testing.T) {
 	want := 3
 	got := Part1(TestInput05A, TestInput05B)
 
 	if want != got {
-		t.Fatalf("Day 4 Part 1 failed, want = %v, got = %v", want, got)
+		t.Fatalf("Day 5 Part 1 failed, want = %v, got = %v", want, got)
 	}
 }	
 
-func TestDay04Part2(t *testing.T) {
+func TestDay05Part2(t *testing.T) {
 	want := 14
 	got := Part2(TestInput05A, TestInput05B)
 
 	if want != got {
-		t.Fatalf("Day 4 Part 1 failed, want = %v, got = %v", want, got)
+		t.Fatalf("Day 5 Part 2 failed, want = %v, got = %v", want, got)
 	}
 }
 
