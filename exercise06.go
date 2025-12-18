@@ -2,6 +2,7 @@ package main
 
 import (
 	"strconv"
+	"strings"
 )
 
 // Part 01 - 6725216329103
@@ -15,6 +16,28 @@ func Exercise06(input []string) int {
 
 	for i, row := range numbers {
 		operator := operators[i]
+
+		if operator == "*" {
+			grandTotal += multiply(row)
+		}
+
+		if operator == "+" {
+
+			grandTotal += add(row)
+		}
+	}
+
+	return grandTotal
+}
+
+func Exercise06Part2(input []string) int {
+	numbers := parseCephalopodNumbers(input[:len(input)-1])
+	operators := parseOperators(input[len(input)-1])
+	lenOperators := len(operators)
+
+	grandTotal := 0
+	for i, row := range numbers {
+		operator := operators[lenOperators-1-i]
 
 		if operator == "*" {
 			grandTotal += multiply(row)
@@ -108,4 +131,33 @@ func add(nums []int) int {
 		total += n
 	}
 	return total
+}
+
+func parseCephalopodNumbers(input []string) [][]int {
+	height := len(input)
+	width := len(input[0])
+
+	numbersSlice := [][]int{}
+	setOperands := []int{}
+	for i := width - 1; i >= 0; i-- {
+		numStr := ""
+		for j := 0; j < height; j++ {
+			numStr += string(input[j][i])
+		}
+
+		trimmed := strings.Trim(numStr, " ")
+
+		if trimmed == "" {
+			numbersSlice = append(numbersSlice, setOperands)
+			setOperands = []int{}
+			continue
+		}
+
+		num, _ := strconv.Atoi(trimmed)
+		setOperands = append(setOperands, num)
+	}
+
+	numbersSlice = append(numbersSlice, setOperands)
+
+	return numbersSlice
 }
